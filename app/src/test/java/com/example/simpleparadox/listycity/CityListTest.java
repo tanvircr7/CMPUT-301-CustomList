@@ -31,6 +31,29 @@ class CityListTest {
     }
 
     @Test
+    void testDelete() {
+        CityList cityList = mockCityList();
+        assertEquals(1,cityList.getCities().size());
+
+        City tmp = mockCity();
+        cityList.delete(tmp);
+
+        assertEquals(0,cityList.getCities().size());
+    }
+
+    @Test
+    void testDeleteException() {
+        CityList cityList = mockCityList();
+
+        City city = new City("Yellowknife", "Northwest Territories");
+        cityList.delete(city);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            cityList.delete(city);
+        });
+    }
+
+    @Test
     void testAddException() {
         CityList cityList = mockCityList();
 
@@ -53,6 +76,13 @@ class CityListTest {
 
         assertEquals(0, city.compareTo(cityList.getCities().get(0)));
         assertEquals(0, mockCity().compareTo(cityList.getCities().get(1)));
+    }
+
+    @Test
+    void testSize() {
+        CityList cityList = mockCityList();
+
+        assertEquals(1, cityList.Size());
     }
 
 }
